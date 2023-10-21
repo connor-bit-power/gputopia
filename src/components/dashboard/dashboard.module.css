@@ -1,0 +1,169 @@
+/* dashboard.module.css */
+.header {
+    @apply text-2xl font-bold py-2;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .headerContainer {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    background-color: rgba(0, 0, 0, 0.3); /* Adjusted the alpha value for better visibility */
+    width: 100%;
+    position: sticky; /* Changed from absolute to sticky */
+    top: 0; /* Set to 0 so it sticks to the top */
+    z-index: 1;
+  }
+  
+  .headerText {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: -50px;
+  }
+  
+  .button {
+    @apply bg-blue-500 text-white px-4 py-2 rounded;
+  }
+
+  .fullScreenBackground {
+    background-image: url('/flares.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: fixed; /* This will make the div cover the entire viewport */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1; /* This ensures the background stays behind your content */
+  }
+  
+  @keyframes pulse-animation {
+    0%, 100% {
+        box-shadow: 0 0 20px #006400;  /* Darkest green */
+    }
+    5%, 95% {
+        box-shadow: 0 0 21px #00670C;
+    }
+    10%, 90% {
+        box-shadow: 0 0 22px #006B08;  /* Slightly brighter than darkest green */
+    }
+    15%, 85% {
+        box-shadow: 0 0 23px #00740B;
+    }
+    20%, 80% {
+        box-shadow: 0 0 24px #007E0D;  /* Midpoint between darkest green and dark green */
+    }
+    25%, 75% {
+        box-shadow: 0 0 25px #008C10;
+    }
+    30%, 70% {
+        box-shadow: 0 0 26px #009215;  /* Slightly darker than dark green */
+    }
+    35%, 65% {
+        box-shadow: 0 0 27px #00A418;
+    }
+    40%, 60% {
+        box-shadow: 0 0 28px #00B025;  /* Midpoint between dark green and light green */
+    }
+    45%, 55% {
+        box-shadow: 0 0 29px #00C02A;
+    }
+    50% {
+        box-shadow: 0 0 30px #00CC33;  /* Reduced intensity light green */
+    }
+}
+
+
+  .content {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+.mainContent {
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    padding: 10px; 
+    justify-content: center; 
+  }
+  
+  .tablecard {
+    width: 1000px;
+    height: auto;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background-color: #171717;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 0 20px #00ff44;
+  }
+
+  .card {
+    width: 300px;
+    height: 150px;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background-color: #171717;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 0 10px #00ff44;
+    animation: pulse-animation 2s infinite
+  }
+  
+  .cardHeader {
+    color: #fff;
+    padding: 0px;
+    font-size: 20px;
+  }
+  
+  .cardContent {
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .bigNumber {
+    font-size: 60px;
+    font-weight: bold;
+    padding: 0px;
+  }
+  
+  .percentage {
+    color: #fff;
+    font-weight: bold; 
+    padding-bottom: 10px;
+    font-size: 20px;
+  }
+
+  .mainContent {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 120px;
+  }
+
+  .graphCard {
+    width: 1000px;
+    height: 500px; 
+    border: 1px solid #fff;
+    border-radius: 20px;
+    background-color: #171717;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 0 20px rgba(93, 240, 6, 0.5);
+  }
+  
