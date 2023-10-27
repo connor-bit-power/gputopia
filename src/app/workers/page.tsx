@@ -26,7 +26,7 @@ const DashboardPage: NextPage = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const res = await fetch('https://queenbee.gputopia.ai/worker/detail?query=bf659aad5f70a157dac179c724b51b51');
+          const res = await fetch('https://queenbee.gputopia.ai/worker/detail?query=YOURWORKER_IDHERE');
           const data = await res.json();
           if (data && Object.keys(data).length > 0) { 
               setStatus("Online");
