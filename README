@@ -1,0 +1,7 @@
+Access Worker Stats page @ http://localhost:3000/workers
+
+Replace YOURWORKER_IDHERE with your worker ID.
+
+const res = await fetch('https://queenbee.gputopia.ai/worker/detail?query=YOURWORKER_IDHERE');
+
+Let me know what you think.
