@@ -2,7 +2,7 @@
 'use client'
 import styles from '@/components/dashboard/dashboard.module.css';
 import { NextPage } from 'next';
-import Dashboard, { useWorkerDetails } from '../../components/dashboard/workersLive';
+import Dashboard, { useWorkerDetails } from '@/components/dashboard/networkLive';
 import { BackgroundImage } from '@/components/background-image'
 
 

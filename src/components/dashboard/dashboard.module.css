@@ -27,9 +27,21 @@
     font-size: 40px;
     font-weight: bold;
     font-family: 'Roboto', sans-serif;
-    margin-bottom: -50px;
+    margin-top: 75px;
   }
   
+  .subheaderText {
+    text-align: left;
+    display: flex;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    padding-left: 200px;;
+    margin-top: 100px;
+    margin-bottom: 0px;
+  }
+
   .button {
     @apply bg-blue-500 text-white px-4 py-2 rounded;
   }
@@ -47,41 +59,8 @@
     z-index: -1; /* This ensures the background stays behind your content */
   }
   
-  @keyframes pulse-animation {
-    0%, 100% {
-        box-shadow: 0 0 20px #006400;  /* Darkest green */
-    }
-    5%, 95% {
-        box-shadow: 0 0 21px #00670C;
-    }
-    10%, 90% {
-        box-shadow: 0 0 22px #006B08;  /* Slightly brighter than darkest green */
-    }
-    15%, 85% {
-        box-shadow: 0 0 23px #00740B;
-    }
-    20%, 80% {
-        box-shadow: 0 0 24px #007E0D;  /* Midpoint between darkest green and dark green */
-    }
-    25%, 75% {
-        box-shadow: 0 0 25px #008C10;
-    }
-    30%, 70% {
-        box-shadow: 0 0 26px #009215;  /* Slightly darker than dark green */
-    }
-    35%, 65% {
-        box-shadow: 0 0 27px #00A418;
-    }
-    40%, 60% {
-        box-shadow: 0 0 28px #00B025;  /* Midpoint between dark green and light green */
-    }
-    45%, 55% {
-        box-shadow: 0 0 29px #00C02A;
-    }
-    50% {
-        box-shadow: 0 0 30px #00CC33;  /* Reduced intensity light green */
-    }
-}
+  @keyframes pulse-animation { 0%, 100% { box-shadow: 0 0 20px #006400; } 5%, 95% { box-shadow: 0 0 21px #00670C; } 10%, 90% { box-shadow: 0 0 22px #006B08; } 15%, 85% { box-shadow: 0 0 23px #00740B; } 20%, 80% { box-shadow: 0 0 24px #007E0D; } 25%, 75% { box-shadow: 0 0 25px #008C10; } 30%, 70% { box-shadow: 0 0 26px #009215; } 35%, 65% { box-shadow: 0 0 27px #00A418; } 40%, 60% { box-shadow: 0 0 28px #00B025; } 45%, 55% { box-shadow: 0 0 29px #00C02A; } 50% { box-shadow: 0 0 30px #00CC33; } }
+
 
 
   .content {
@@ -92,7 +71,7 @@
     justify-content: center;
   }
 
-.mainContent {
+  .mainContent {
     overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
@@ -104,18 +83,21 @@
   .tablecard {
     width: 1000px;
     height: auto;
-    border: 1px solid #fff;
+    border: 1px solid #272727;
     border-radius: 20px;
-    background-color: #171717;
-    padding: 10px;
+    background-color: #131313;
+    padding-left: 25px;
+    padding-right: 25px;
     margin: 10px 0;
-    box-shadow: 0 0 20px #00ff44;
+    /* box-shadow: 0 0 20px #00ff44; */
+    text-align: center;
   }
+
 
   .card {
     width: 300px;
     height: 150px;
-    border: 1px solid #fff;
+    border: 1px solid #8f8f8f;
     border-radius: 20px;
     background-color: #171717;
     padding: 10px;
@@ -123,11 +105,47 @@
     box-shadow: 0 0 10px #00ff44;
     animation: pulse-animation 2s infinite
   }
+
+  .workercard {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    border: 1px solid #272727;
+    border-radius: 20px;
+    background-color: #131313;
+    padding: 10px;
+    margin-left: 50px 0;
+    margin-bottom: 25px;
+    animation: pulse-animation 2s infinite
+  }
+
+ 
+
+  .statscard {
+    flex-basis: calc(50% - 0.5rem);
+    width: 255px;
+    height: 165px;
+    border: 1px solid #272727;
+    border-radius: 20px;
+    background-color: #131313;
+    padding: 10px;
+    margin: 10px;
+  }
   
+  .statsHeader {
+    color: #fff;
+    padding-top: 0px;
+    padding-left: 0px;
+    margin-left: -35px;
+    font-size: 16px;
+    text-align: left;
+  }
+
   .cardHeader {
     color: #fff;
-    padding: 0px;
+    padding: 5px;
     font-size: 20px;
+    text-align: left;
   }
   
   .cardContent {
@@ -135,15 +153,45 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    justify-content: space-between;
     align-items: center;
   }
   
+  .cardSection {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    flex: 1; 
+    padding: 15px 0; 
+    margin-bottom: 25px;
+}
+
   .bigNumber {
-    font-size: 60px;
+    font-size: 40px;
     font-weight: bold;
     padding: 0px;
+    text-align: center;
+    -webkit-text-stroke: 0px #fff;
+    color: #00CC33;
   }
-  
+
+  .statNumber {
+    font-size: 55px;
+    font-weight: bold;
+    padding: 0px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .mutedText {
+    color: #aaa;  /* Muted color, adjust as needed */
+    font-size: 14px;  /* Smaller font size, adjust as needed */
+    margin-bottom: 2px;
+    text-align: center;  /* Add some spacing below the muted text if it's present */
+}
+
   .percentage {
     color: #fff;
     font-weight: bold; 
@@ -152,6 +200,7 @@
   }
 
   .mainContent {
+    margin-top: -70px;
     font-family: 'Roboto', sans-serif;
     padding-top: 120px;
   }
@@ -167,3 +216,22 @@
     box-shadow: 0 0 20px rgba(93, 240, 6, 0.5);
   }
   
+  .titleLine {
+    width: 70%; /* You can control the width here */
+    height: 2px;
+    background-color: #272727;
+    position: center;
+    margin-left: 200px;
+}
+
+  .centerLine {
+    width: 260px; /* You can control the width here */
+    height: 2px;
+    background-color: #272727;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
