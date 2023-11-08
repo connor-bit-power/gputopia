@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { useState } from 'react'
 import Image from 'next/image'
-import { CounterClockwiseClockIcon, RocketIcon } from '@radix-ui/react-icons'
-
+import { CounterClockwiseClockIcon, RocketIcon, PlusIcon, UploadIcon} from '@radix-ui/react-icons'
+import { Switch } from "@/components/ui/switch"
 import { Button } from '@/components/ui/button'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card'
 import { Label } from '@/components/ui/label'
@@ -58,15 +58,6 @@ export default function PlaygroundPage() {
       <div className="h-full flex-col flex">
         <div className="container flex flex-col items-start justify-between space-y-2 py-6 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
           <H1 className="text-lg font-semibold my-50px">Playground</H1>
-          <div className="ml-auto flex w-full space-x-2 sm:justify-end">
-            <PresetSelector presets={presets} />
-            <PresetSave />
-            <div className="hidden space-x-2 md:flex">
-              <CodeViewer />
-              <PresetShare />
-            </div>
-            <PresetActions />
-          </div>
         </div>
         <Separator />
         <Tabs defaultValue="complete" className="flex-1">
@@ -94,12 +85,30 @@ export default function PlaygroundPage() {
                 style={{ height: '150px' }} 
                 placeholder="You are a helpful agent..." />
                 <ModelSelector types={types} models={models} />
-                <Card className="w-[350px] h-[215px]">
+                <Card className="w-[350px] h-[265px]">
                       <CardHeader>
                         <CardTitle>Tools</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p></p>
+                      <div className="flex w-full space-x-2 mb-3">
+                        <span className="flex-grow">Functions</span>
+                        <PlusIcon className="h-7 w-5"/>
+                      </div>
+                      <Separator className="flex w-full space-x-2 mb-3"/>
+                      <div className="flex w-full space-x-2 mb-3">
+                        <span className="flex-grow">Code interpreter</span>
+                        <Switch />
+                      </div>
+                      <Separator className="flex w-full space-x-2 mb-3"/>
+                      <div className="flex w-full space-x-2 mb-3">
+                        <span className="flex-grow">Retrieval</span>
+                        <Switch />
+                      </div>
+                      <Separator className="flex w-full space-x-2 mb-3"/>
+                      <div className="flex w-full space-x-2 mb-2">
+                        <span className="flex-grow">Files</span>
+                        <UploadIcon className="h-7 w-5" />
+                      </div>
                       </CardContent>
                     </Card>
               </div>
@@ -110,6 +119,10 @@ export default function PlaygroundPage() {
                       className="min-h-[400px] flex-1 p-4 md:min-h-[700px] lg:min-h-[700px]">
                       <CardHeader  className="p-2">
                         <CardTitle>Results</CardTitle>
+                        <div className="ml-auto flex w-full space-x-2 sm:justify-end">
+                        <Button class="text-white border border-white">Run</Button>
+                        <Button class="text-white border border-white">Clear</Button>
+                       </div>
                       </CardHeader>
                       <CardContent>
                         <p></p>
