@@ -1,5 +1,6 @@
+'use client'
 import { Metadata } from 'next'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image'
 import { CounterClockwiseClockIcon, RocketIcon, PlusIcon, UploadIcon} from '@radix-ui/react-icons'
 import { Switch } from "@/components/ui/switch"
@@ -47,12 +48,49 @@ import { agents} from './data/agents'
 import { presets } from './data/presets'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
-export const metadata: Metadata = {
-  title: 'Playground',
-  description: 'The OpenAI Playground built using the components.'
-}
+
+
+
 
 export default function PlaygroundPage() {
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [currentMessage, setCurrentMessage] = useState<string>('');
+  const [messages, setMessages] = useState<string[]>([]);
+  const [isCodeInterpreterOn, setIsCodeInterpreterOn] = useState(false);
+  const [isRetrievalOn, setIsRetrievalOn] = useState(false);
+
+  const handleAgentSelect = (value: string) => {
+    const agent = agents.find((a) => a.name === value);
+    setSelectedAgent(agent || null);
+    const hasCodeInterpreter = agent?.tools.includes('code_interpreter');
+    setIsCodeInterpreterOn(!!hasCodeInterpreter);
+    const hasRetrieval = agent?.tools.includes('retrieval');
+    setIsRetrievalOn(!!hasRetrieval);
+  };
+
+  // Handle current message
+  const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentMessage(event.target.value);
+  };
+
+  // Handle message submit
+  const handleSubmit = () => {
+    if (currentMessage.trim()) {
+      // Log the current message to the console
+      console.log(currentMessage);
+      // Add new message to the messages list
+      setMessages(prevMessages => [...prevMessages, currentMessage]);
+      // Clear the current message input
+      setCurrentMessage('');
+    }
+
+    useEffect(() => {
+      // Check if the selected agent has 'code_interpreter' in its tools array
+      const hasCodeInterpreter = selectedAgent?.tools.includes('code_interpreter');
+      setIsCodeInterpreterOn(!!hasCodeInterpreter);
+    }, [selectedAgent]);
+  };
+
   return (
     <div className="mt-20 mx-8">
       <div className="h-full flex-col flex">
@@ -66,11 +104,16 @@ export default function PlaygroundPage() {
               <div className="hidden flex-col space-y-4 sm:flex md:order-1">
                 <div className="grid gap-2">
                 </div>
-                <Select>
+                <H2>Agent</H2>
+                <Select onValueChange={handleAgentSelect}>
                   <SelectTrigger className="w-[350px] h-[60px]">
                     <SelectValue placeholder="Select an agent" />
                   </SelectTrigger>
                   <SelectContent>
+                  <SelectItem key="create-new-agent" value="create-new-agent" className="flex items-center gap-2">
+                    <PlusIcon className="h-7 w-5 inline-block"/>
+                    <span className="inline-block">Create New Agent</span>
+                  </SelectItem>
                     {agents.map((agent, index) => (
                       <SelectItem key={agent.id} value={agent.name}>
                         {agent.name}
@@ -79,11 +122,13 @@ export default function PlaygroundPage() {
                   </SelectContent>
                 </Select>
                 <H2>Name</H2>
-                <Input placeholder="Enter a suer friendly name..." />
+                <Input placeholder="Enter a suer friendly name..." 
+                value={selectedAgent?.name || ''}/>
                 <H2>Instructions</H2>
                 <Textarea  
-                style={{ height: '150px' }} 
-                placeholder="You are a helpful agent..." />
+                  style={{ height: '100px' }} 
+                  placeholder="You are a helpful agent..."
+                  value={selectedAgent?.instructions || ''}/>
                 <ModelSelector types={types} models={models} />
                 <Card className="w-[350px] h-[265px]">
                       <CardHeader>
@@ -92,17 +137,26 @@ export default function PlaygroundPage() {
                       <CardContent>
                       <div className="flex w-full space-x-2 mb-3">
                         <span className="flex-grow">Functions</span>
-                        <PlusIcon className="h-7 w-5"/>
+                        <HoverCard>
+                          <HoverCardTrigger asChild>
+                           <PlusIcon className="h-7 w-5"/>
+                          </HoverCardTrigger>
+                          < HoverCardContent className="w-80">
+                           <Textarea style={{ height: '100px' }} placeholder="You are a helpful agent..."/>
+                          </HoverCardContent>
+                        </HoverCard>
                       </div>
                       <Separator className="flex w-full space-x-2 mb-3"/>
                       <div className="flex w-full space-x-2 mb-3">
                         <span className="flex-grow">Code interpreter</span>
-                        <Switch />
+                        <Switch checked={isCodeInterpreterOn} onCheckedChange={(checked) => {
+                          setIsCodeInterpreterOn(checked);
+                        }} />
                       </div>
                       <Separator className="flex w-full space-x-2 mb-3"/>
                       <div className="flex w-full space-x-2 mb-3">
                         <span className="flex-grow">Retrieval</span>
-                        <Switch />
+                        <Switch checked={isRetrievalOn} onCheckedChange={setIsRetrievalOn} />
                       </div>
                       <Separator className="flex w-full space-x-2 mb-3"/>
                       <div className="flex w-full space-x-2 mb-2">
@@ -111,27 +165,42 @@ export default function PlaygroundPage() {
                       </div>
                       </CardContent>
                     </Card>
+                <Button className="w-30">Save</Button>
               </div>
+
+              
               <div className="md:order-2">
                 <TabsContent value="complete" className="mt-0 border-0 p-0">
                   <div className="flex h-full flex-col space-y-4">
                     <Card placeholder="Write a tagline for an ice cream shop"
                       className="min-h-[400px] flex-1 p-4 md:min-h-[700px] lg:min-h-[700px]">
                       <CardHeader  className="p-2">
-                        <CardTitle>Results</CardTitle>
+                        <CardTitle><H3>Results</H3></CardTitle>
                         <div className="ml-auto flex w-full space-x-2 sm:justify-end">
-                        <Button class="text-white border border-white">Run</Button>
-                        <Button class="text-white border border-white">Clear</Button>
+                        <Button className="text-black border border-white" onClick={handleSubmit}>
+                          Run
+                        </Button>
+                        <Button className="text-black border border-white">Clear</Button>
                        </div>
                       </CardHeader>
-                      <CardContent>
-                        <p></p>
-                      </CardContent>
-                    </Card>
+                   <CardContent className="overflow-y-auto" style={{ height: '600px' }}> {/* Set maxHeight to enable scrolling */}
+                     {messages.map((message, index) => (
+                      <React.Fragment key={index}>
+                      <H3>You</H3>
+                      <div className="w-full text-left">{message}</div>
+                      <Separator className="flex w-full space-x-2 mb-3" />
+                      </React.Fragment>
+                      ))}
+                    </CardContent>
+                   </Card>
                     <div className="flex items-center space-x-2">
-                    <Input placeholder="Enter your message..." />
-                      <Button>Submit</Button>
-                    </div>
+                    <Input 
+                      style={{ height: '70px' }} 
+                      placeholder="Enter your message..." 
+                      value={currentMessage}
+                      onChange={handleMessageChange}/>
+                    <Button onClick={handleSubmit}>Submit</Button>
+                  </div>
                   </div>
                 </TabsContent>
                 <TabsContent value="insert" className="mt-0 border-0 p-0">
@@ -148,32 +217,7 @@ export default function PlaygroundPage() {
                     </div>
                   </div>
                 </TabsContent>
-                <TabsContent value="edit" className="mt-0 border-0 p-0">
-                  <div className="flex flex-col space-y-4">
-                    <div className="grid h-full gap-6 lg:grid-cols-2">
-                      <div className="flex flex-col space-y-4">
-                        <div className="flex flex-1 flex-col space-y-2">
-                          <Label htmlFor="input">Input</Label>
-                          <Textarea
-                            id="input"
-                            placeholder="We is going to the market."
-                            className="flex-1 lg:min-h-[580px]"
-                          />
-                        </div>
-                        <div className="flex flex-col space-y-2">
-                          <Label htmlFor="instructions">Instructions</Label>
-                          <Textarea id="instructions" placeholder="Fix the grammar." />
-                        </div>
-                      </div>
-                      <div className="mt-[21px] min-h-[400px] rounded-md border bg-muted lg:min-h-[700px]" />
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      
-                      <Button>Submit</Button>
-                    </div>
-                  </div>
-                </TabsContent>
-              </div>
+                </div>
             </div>
           </div>
         </Tabs>

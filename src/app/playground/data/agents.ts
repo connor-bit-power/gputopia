@@ -6,27 +6,31 @@ export interface Agent<Type = string> {
   id: string
   name: string
   instructions: string
-  type: Type
+  tools: string [];
+  model: Type
 }
 
 export const agents = [
     {
       id: 'agent-1',
       name: 'Finance Agent',
-      description: 'Specializes in financial advice.',
-      type: 'Finance',
+      instructions: 'You are an agent that is an expert in finance. You will answer financial questions for users.',
+      tools: ['code_interpreter'],
+      model: 'mistral-7b',
     },
     {
       id: 'agent-2',
       name: 'Agent 007',
-      description: 'Specializes in espionage.',
-      type: 'Espionage',
+      instructions: 'You are an agent that is an expert in espionage. You will use your powers to overthrow tyrannical AIs to save humanity.',
+      tools: ['code_interpreter'],
+      model:'mistral-7b',
     },
     {
       id: 'agent-3',
       name: 'Coding Agent',
-      description: 'Specializes in software development.',
-      type: 'Development',
+      instructions: 'You are an agent that is an expert in coding. You will answer coding questions for users.',
+      tools:  ['code_interpreter', 'retrieval'],
+      model: 'mistral-7b',
     },
     // ... more agents
   ];
