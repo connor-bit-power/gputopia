@@ -45,16 +45,27 @@ function App() {
         const response = await fetch("https://queenbee.gputopia.ai/v1/images/generations", {
           method: 'POST',
           headers: {
+            'Authorization': 'Bearer ccdd466ccf999f74e64ac25b077709eb', // Add your API token here
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(requestData)
         });
         if (response.ok) {
           const jsonResponse = await response.json();
-          const imageUrl = jsonResponse.data[0].url;
-          console.log("Image fetched successfully:", imageUrl);
-          setGeneratedImageUrl(imageUrl);
-          setIsGenerated(true);
+          if (jsonResponse.data && jsonResponse.data.length > 0) {
+            const item = jsonResponse.data[0];
+            if ('url' in item && item['url']) {
+              setGeneratedImageUrl(item['url']);
+            } else if ('b64_json' in item && item['b64_json']) {
+              const base64String = item['b64_json'];
+              setGeneratedImageUrl(`data:image/png;base64,${base64String}`);
+            } else {
+              console.error("No valid image data found.");
+            }
+            setIsGenerated(true);
+          } else {
+            console.error("No data found in the response.");
+          }
         } else {
           console.error("Failed to fetch image from API. Status:", response.status);
         }
@@ -64,12 +75,11 @@ function App() {
         setIsLoading(false);
       }
     };
+    
 
   return (
     <div>
       <header>
-        <h1>GPUTOPIA</h1>
-        <button onClick={resetToDefault}>Image Generator</button>
       </header>
 
       <main>
@@ -79,6 +89,7 @@ function App() {
         </div>
         )}
         <div className="input-container" style={{ marginTop: isGenerated ?  '50px' : '20px' }}>
+          
           <input type="text" id="promptInput" placeholder="Enter your prompt here..." value={prompt} onChange={(e) => setPrompt(e.target.value)} />
           <button id="generateImage" onClick={handleGenerateClick}>Generate</button>
         </div>

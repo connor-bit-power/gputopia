@@ -195,10 +195,13 @@ header button:hover {
 }
 
 .generatedImage {
-  max-width: 100%;
-  height: auto;
+  width: 100%; /* Ensure the image takes the full width of its container */
+  height: auto; /* Ensure the height adjusts to maintain the aspect ratio */
+  max-width: 1024px; /* Set a max-width corresponding to the image size */
+  max-height: 1024px; /* Set a max-height corresponding to the image size */
   border-radius: 8px;
-  margin: 5px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds shadow for depth */
+  object-fit: contain; /* This will ensure that the image is fully visible and contained within its element */
 }
 .image1 {
   width: 250px; 
@@ -255,19 +258,18 @@ header button:hover {
 }
 
 #output {
-  width: 1050px; 
-  margin-top: 50px;
-  margin-left: 10px;
-  display: flex;
-  flex-direction: row; 
-  justify-content: center; 
-  align-items: flex-start;
-  flex-wrap: wrap; 
-  padding: 10px; 
-  border-radius: 8px;
-  border: 2px solid #333333;
-  background-color: #171717;
-  justify-content: flex-start;
+  #output {
+    max-width: 1050px; /* Adjusted from width to max-width */
+    margin: 50px auto; /* Changed to auto to center align the container */
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    padding: 10px; 
+    border-radius: 8px;
+    border: 2px solid #333333;
+    background-color: #171717;
+    overflow: hidden; /* Add this to ensure the content is contained within the border */
+  }
 }
 
 
