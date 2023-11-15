@@ -44,8 +44,7 @@ function App() {
         console.log("Fetching image from API...");
         const response = await fetch("https://queenbee.gputopia.ai/v1/images/generations", {
           method: 'POST',
-          headers: {
-            'Authorization': 'Bearer ccdd466ccf999f74e64ac25b077709eb', // Add your API token here
+          headers: { 
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(requestData)
@@ -89,7 +88,6 @@ function App() {
         </div>
         )}
         <div className="input-container" style={{ marginTop: isGenerated ?  '50px' : '20px' }}>
-          
           <input type="text" id="promptInput" placeholder="Enter your prompt here..." value={prompt} onChange={(e) => setPrompt(e.target.value)} />
           <button id="generateImage" onClick={handleGenerateClick}>Generate</button>
         </div>

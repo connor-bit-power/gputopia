@@ -20,7 +20,6 @@ body, h1, p {
   --uib-speed: 1.75s;
   --uib-color: rgba(93, 240, 6, 0.8);
   --uib-line-weight: 5px;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -28,6 +27,7 @@ body, h1, p {
   height: var(--uib-line-weight);
   width: 80%;
   margin: 0 auto;
+  margin-bottom: 10px;
   border-radius: calc(var(--uib-line-weight) / 2);
   box-shadow: 0 0 20px rgba(93, 240, 6, 0.8);
   overflow: hidden;
